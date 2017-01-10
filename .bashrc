@@ -5,7 +5,6 @@
 export GIT_HOME="~/git"
 export EDITOR=vim
 
-
 ####################
 #
 #   P A T H
@@ -21,7 +20,7 @@ export EDITOR=vim
 # Directory listing in a nice format
 alias lla='ls -lAGh'
 
-alias edb='vim ~/bin/.bashrc; exec bash'
+alias edb='vim ~/git/dotfiles/.bashrc; exec bash'
 
 
 # Disk usage that also sorts the results by size and saves to a file
@@ -51,7 +50,7 @@ ssh-add ~/.ssh/github_id_rsa &> /dev/null
 # P R O M P T
 #
 #############
-export PS1='\[\033]0;$TITLEPREFIX:${PWD//[^[:ascii:]]/?}\007\]\n \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ '
+# export PS1='\[\033]0;$TITLEPREFIX:${PWD//[^[:ascii:]]/?}\007\]\n \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ '
 
 ##############
 #
@@ -97,17 +96,20 @@ function gbr
 #   D O C K E R
 #
 ###########################
+alias d='sudo docker'
+# If user is root no need for sudo
 if [ "$(id -u)" == "0" ]; then   
   alias d='docker'
-else
-  alias d='sudo docker'
 fi
 
 alias di='d images'
 alias dps='d ps'
 alias dpsa='dps -a'
-function dex { d exec -it "$1" /bin/bash }
 
+function dex
+{ 
+    d exec -it "$1" /bin/bash
+}
 
 ###########################
 #
@@ -119,7 +121,15 @@ alias kg='k get'
 alias kd='k describe'
 
 
-
-
+##########################
+#
+# B A S I C   T O O L S
+#
+##########################
+function install_basic_tools()
+{
+    apt update
+    apt install -y git tmux htop
+}
 
 
