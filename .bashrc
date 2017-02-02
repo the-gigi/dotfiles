@@ -2,7 +2,7 @@
 # This file should be sourced from your ~/.bashrc 
 # -----------------------------------------------
 
-export GIT_HOME="~/git"
+export GIT_HOME=~/git
 export EDITOR=vim
 
 ####################
