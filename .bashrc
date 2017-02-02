@@ -26,6 +26,28 @@ alias edb='vim ~/git/dotfiles/.bashrc; exec bash'
 # Disk usage that also sorts the results by size and saves to a file
 alias dus='du -Pscmx * | sort -nr | tee disk_usage.txt'
 
+function find_listeners
+{
+  for port in "$@"
+  do
+    lsof -i | grep LISTEN | grep "$port" | awk '{ print $2 }'
+  done
+}
+
+function kill_listeners
+{
+  for port in "$@"
+  do
+    listener=$(find_listeners $port)
+    if [ -n "$listener" ]; then
+      echo "Killing listener: $listener"
+      kill -9 "$listener"
+    fi
+  done
+}
+
+
+
 ####################
 #
 # N A V I G A T I O N
@@ -89,6 +111,20 @@ function gbr
     gb $1
     g push -u origin $1
     gco $1
+}
+
+# Check if git repo has changed changed (master vs. origin/master)
+function has_repo_changed() {
+    pushd . > /dev/null
+    cd "$1" > /dev/null
+    modified=$(git remote -v update 2>&1 | grep master | grep -v "up to date")
+    popd > /dev/null
+    if [[ "$modified" -eq '' ]]
+        then
+            return 1 # False
+        else
+            return 0 # True
+    fi
 }
 
 ###########################
