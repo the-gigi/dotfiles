@@ -96,7 +96,7 @@ alias gbd='git branch -D'
 alias gco='git checkout'
 alias gpu='git pull --rebase'
 alias gg='git grep -i'
-alias gs='git status'
+alias gs='git status -uno'
 alias gd='git diff'
 alias gl='git log --oneline'
 
@@ -164,8 +164,17 @@ alias kd='k describe'
 ##########################
 function install_basic_tools()
 {
-    apt update
+    apt update  -y
     apt install -y git tmux htop
 }
 
-
+###############
+#
+#   S Q L I T E
+#
+###############
+# Run sqlite commands directly (need to quote if using * in query)
+function sq
+{
+    sqlite3 $SQLITE_DB_NAME "$*;"
+}
