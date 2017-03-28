@@ -138,6 +138,11 @@ if [ "$(id -u)" == "0" ]; then
   alias d='docker'
 fi
 
+# If running on Mac (Darwin) no need for sudo
+if [ "$(uname -a)" == "Darwin" ]; then
+  alias d='docker'
+fi
+
 alias di='d images'
 alias dps='d ps'
 alias dpsa='dps -a'
