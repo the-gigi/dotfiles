@@ -4,4 +4,7 @@
 - create ~/git directory
 - cd ~/git
 - git clone https://github.com/the-gigi/dotfiles.git
-- add `source ~/git/dotfiles/.bashrc` at the end of your ~/.bashrc
+- mkdir ~/bin
+- cp ~/git/dotfiles/.bashrc ~/bin
+- add `source ~/bin/.bashrc` at the end of your ~/.bashrc
+- add `source ~/.bashrc` at the end of ~/.bash_profile
