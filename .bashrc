@@ -20,7 +20,7 @@ export EDITOR=vim
 # Directory listing in a nice format
 alias lla='ls -lAGh'
 
-alias edb='vim ~/git/dotfiles/.bashrc; exec bash'
+alias edb='vim ~/.bashrc; exec bash'
 
 
 # Disk usage that also sorts the results by size and saves to a file
