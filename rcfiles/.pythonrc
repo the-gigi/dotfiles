@@ -1,0 +1,5 @@
+# If the PYTHONSTARTUP env variable doesn't point to this file, it will not be called
+# when interactive sessions of Python start
+
+import os
+import sys

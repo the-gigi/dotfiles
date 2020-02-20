@@ -1,4 +1,4 @@
-" Turn on syntax hilighting
+" Turn on syntax highlighting
 syntax on
 
 " Select delek color scheme
