@@ -1,4 +1,5 @@
-tools = (python \
+tools = (bash \
+         python \
          go \
          node \
          rust \

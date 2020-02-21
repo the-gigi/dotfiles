@@ -27,11 +27,11 @@ brew tap caskroom/versions
 ## Install tools and apps defined in setup/install.sh
 source ${DOT_DIR}/bootstrap/install.sh
 
-for tool in tools; do
+for tool in ${tools[*]}; do
   brew install $tool
 done
 
-for app in apps; do
+for app in ${apps[*]}; do
   brew cask install $app
 done
 
