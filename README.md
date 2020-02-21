@@ -6,6 +6,8 @@ The README file introduces the general approach for organizing this stuff
 and then explains how to install it, how to use the existing functionality
 and how to extend it.
 
+I took some stuff from https://github.com/holman/dotfiles (some of the macOS defaults)
+
 ## Introduction
 
 The goal is to have a zero to hero one-click setup that can be extended for specific purposes 
@@ -42,25 +44,25 @@ The built-in functionality includes:
 - Various functions
 - Various aliases
 
-You should check out the various files in the components.d directory. 
+You should check out the various files in the components directory. 
 
 
 ## Components
 
 
-### SSH
+### ssh
 
-### Git
+### git
 
-### Docker
+### docker
 
-### Kubernetes
+### kubernetes
 
-### MacOS
+### macos
 
-### Prompt
+### prompt
 
-### iTerm2
+
 
 ## Extensions and customizations
 

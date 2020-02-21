@@ -1,0 +1,2 @@
+# Ignore case when doing <tab> auto-complete
+set completion-ignore-case on
