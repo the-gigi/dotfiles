@@ -21,8 +21,8 @@ echo 'source ~/dotfiles/.bashrc' >>~/.bash_profile
 
 ## Install brew and brew-cask
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew tap caskroom/cask
-brew tap caskroom/versions
+brew tap homebrew/cask-cask
+brew tap homebrew/cask-versions
 
 ## Install brew and brew-cask tools and apps
 for item in ${DOT_DIR}/bootstrap/brew.txt; do
