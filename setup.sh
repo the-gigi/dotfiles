@@ -5,7 +5,7 @@
 # and hooking up with the .bashrc
 # ----------------------------------------------------------
 
-DOT_DIR=~/git/dotfiles/
+DOT_DIR=~/git/dotfiles
 
 # Local dotfiles dir for additions and customizations
 mkdir -p ~/dotfiles-extra
