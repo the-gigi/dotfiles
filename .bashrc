@@ -15,10 +15,14 @@ fi
 
 # Execute all the standard files under ~/git/dotfiles/components
 for f in ~/git/dotfiles/components; do
-  source f
+  if [[ -f f ]]; then
+    source f
+  fi
 done
 
 # Execute any local customizations that are in ~/dotfiles-local
 for f in ~/dotfiles-local; do
-  source f
-fi
+  if [[ -f f ]]; then
+    source f
+  fi
+done

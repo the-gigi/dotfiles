@@ -1,0 +1,15 @@
+iterm2
+dropbox
+firefox
+brave-browser
+bbedit
+vlc
+pycharm
+macdown
+slack
+macdown
+docker
+calibre
+adobe-acrobat-reader
+whatapp
+paintbrush

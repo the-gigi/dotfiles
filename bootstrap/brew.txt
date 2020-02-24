@@ -1,0 +1,16 @@
+bash
+python
+go
+node
+rust
+kubectl
+kubernetes-helm
+octant
+minikube
+k9s
+k3d
+tmux
+httpie
+jq
+tree
+envsubst

@@ -24,15 +24,13 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew tap caskroom/cask
 brew tap caskroom/versions
 
-## Install tools and apps defined in setup/install.sh
-source ${DOT_DIR}/bootstrap/install.sh
-
-for tool in ${tools[*]}; do
-  brew install $tool
+## Install brew and brew-cask tools and apps
+for item in ${DOT_DIR}/bootstrap/brew.txt; do
+  brew install $item
 done
 
-for app in ${apps[*]}; do
-  brew cask install $app
+for item in ${DOT_DIR}/bootstrap/brew-cask.txt; do
+  brew cask install $item
 done
 
 ## Configure macos defaults
