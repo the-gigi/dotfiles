@@ -15,7 +15,8 @@ for file in ${DOT_DIR}/rcfiles.d; do
   ln -s file ~
 done
 
-echo 'source ~/dotfiles/.bashrc' >>~/.bash_profile
+# Append a call to existing ~/.bashrc to run the dotfiles' .bashrc
+echo "source ${DOT_DIR}/.bashrc" >> ~/.bashrc
 
 # Install stuff
 
