@@ -1,6 +1,6 @@
 alias d='sudo docker'
 # If user is root no need for sudo
-if [ "$(id -u)" == "0" ]; then
+if [[ "$(id -u)" == "0" ]]; then
   alias d='docker'
 fi
 
