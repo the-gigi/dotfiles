@@ -17,4 +17,7 @@ defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
+# Disable annoying "Last Login at..." message when shell starts
+touch ~/.hushlogin
+
 

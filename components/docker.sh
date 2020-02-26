@@ -1,3 +1,5 @@
+#! /usr/bin/env zsh
+
 alias d='sudo docker'
 # If user is root no need for sudo
 if [[ "$(id -u)" == "0" ]]; then
@@ -5,7 +7,7 @@ if [[ "$(id -u)" == "0" ]]; then
 fi
 
 # If running on Mac (Darwin) no need for sudo
-if [ "$(uname)" == "Darwin" ]; then
+if [[ "$(uname)" == "Darwin" ]]; then
   alias d='docker'
 fi
 

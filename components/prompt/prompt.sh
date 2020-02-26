@@ -1,9 +1,9 @@
-#paths=("$HOME/git;[g]" "$HOME;~")
-prompt_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+#! /usr/bin/env zsh
 
+script_name=${(%):-%N}
+prompt_dir="$(cd "$(dirname "$script_name")" >/dev/null 2>&1 && pwd)"
 
 alias escape_path='sed -e "s/\//\\\\\//g"'
-
 
 function calc_current_dir()
 {
@@ -12,10 +12,12 @@ function calc_current_dir()
   do
     if [[ $PWD == *"${key}"* ]]; then
       key=$(echo "$key" | escape_path)
+      # In theory this works cwd=${PWD/$key/$value}
+      # In practice in can't :-)
       cwd=$(echo "$PWD" | sed -e "s/$key/$(echo $value)/")
       break
     fi
-  done < "${prompt_dir}/paths.txt"
+  done < <(envsubst < "${prompt_dir}/paths.txt")
   echo "${cwd}"
 }
 
@@ -26,10 +28,14 @@ function prompt()
   if [ -z "$PS1" ]; then
     return
   fi
-  PS1='$(calc_current_dir)\n$ '
+
+  # doesn't work without it
+  setopt promptsubst
+  PS1='$(calc_current_dir)/$(echo "\n$ ")'
 }
 
-
+# Actually set the prompt by calling the function
+prompt
 
 #function prompt()
 #{

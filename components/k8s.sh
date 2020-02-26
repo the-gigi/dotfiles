@@ -11,19 +11,21 @@ alias mks='mk start'
 # Show local kubeconfig files or copy a KUBECONFIG file to ~/.kube/config
 function kch
 {
-    if [ "$#" -ne 1 ]; then
+    if [[ "$#" -ne 1 ]]; then
         lla ~/.kube
     else
-        cp ~/.kube/${1}-config ~/.kube/config
+        cp ~/.kube/"${1}"-config ~/.kube/config
     fi
 }
 
-# Bash completion for kubectl
-source <(kubectl completion bash)
-
 function get_pod_name_by_label
 {
-    kg po -l $1 -o custom-columns=NAME:.metadata.name | tail +2 | uniq
+    kg po -l "$1" -o custom-columns=NAME:.metadata.name | tail +2 | uniq
 }
 
 alias kpn='get_pod_name_by_label'
+
+# Bash completion for kubectl
+#autoload -Uz compinit
+#compinit
+#source <(kubectl completion zsh)

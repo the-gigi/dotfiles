@@ -1,4 +1,2 @@
-$HOME/git:\[g\]
+$HOME/git:\(G)
 $HOME:~
-/c/Users/the_g/git:\[G\]
-/c/Users/the_g:~
