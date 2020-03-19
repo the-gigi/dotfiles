@@ -13,6 +13,11 @@ BOOTSTRAP_DIR=${DOT_DIR}/bootstrap
 
 # Local dotfiles dir for additions and customizations
 mkdir -p "$LOCAL_DOT_DIR"
+${LOCAL_DOT_DIR}/paths.txt
+${LOCAL_DOT_DIR}/brew.txt
+${LOCAL_DOT_DIR}/brew-link.txt
+${LOCAL_DOT_DIR}/brew-cask.txt
+
 
 # Symlink all rc files to the home dir (run commands. See https://en.wikipedia.org/wiki/Run_commands)
 for file in ${DOT_DIR}/rcfiles.d; do
@@ -29,6 +34,12 @@ echo 'source ${DOT_DIR}/.zshrc' >>~/.zshrc
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew tap homebrew/cask-cask
 brew tap homebrew/cask-versions
+
+
+## Add taps  with brew
+for item in $(cat ${BOOTSTRAP_DIR}/brew-tap.txt); do
+  brew tap $item
+done
 
 ## Install stuff with brew
 for item in $(cat ${BOOTSTRAP_DIR}/brew.txt); do

@@ -5,9 +5,7 @@ calibre
 docker
 dropbox
 firefox
-google-cloud-sdk
 iterm2
-macdown
 macdown
 paintbrush
 pycharm-ce

@@ -4,17 +4,12 @@ httpie
 jq
 k3d
 k9s
-kind
 kubectl
 kubernetes-helm
-kubebuilder
-kustomize
 minikube
 node
 octant
 python3
-pyenv
 rust
 tmux
 tree
-pipenv

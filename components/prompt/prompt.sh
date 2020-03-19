@@ -1,9 +1,15 @@
 #! /usr/bin/env zsh
 
 script_name=${(%):-%N}
-prompt_dir="$(cd "$(dirname "$script_name")" >/dev/null 2>&1 && pwd)"
+PROMPT_DIR="$(cd "$(dirname "$script_name")" >/dev/null 2>&1 && pwd)"
 
 alias escape_path='sed -e "s/\//\\\\\//g"'
+
+function get_paths()
+{
+  envsubst < <(cat ~/.dotfiles.local/paths.txt "${PROMPT_DIR}/paths.txt")
+}
+
 
 function calc_current_dir()
 {
@@ -17,7 +23,7 @@ function calc_current_dir()
       cwd=$(echo "$PWD" | sed -e "s/$key/$(echo $value)/")
       break
     fi
-  done < <(envsubst < "${prompt_dir}/paths.txt")
+  done < <(get_paths)
   echo "${cwd}"
 }
 

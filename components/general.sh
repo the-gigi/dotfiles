@@ -3,7 +3,10 @@ export EDITOR=vim
 # Don't save commands that have a space prefix in the history
 export HISTCONTROL=ignorespace
 
-alias shrug='echo "\_(ツ)_/¯"'
+# Enable the repeat command
+enable -r repeat
+
+alias shrug='echo "¯\_(ツ)_/¯"'
 
 # Directory listing in a nice format
 alias lla='ls -lAGh'

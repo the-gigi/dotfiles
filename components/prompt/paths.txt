@@ -1,2 +1,2 @@
-$HOME/git:\(G)
+$HOME/git:(🐙)
 $HOME:~
