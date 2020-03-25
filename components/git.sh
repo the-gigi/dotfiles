@@ -14,7 +14,10 @@ alias gl='git log --oneline'
 
 
 # Show all untracked files and directories in current dir
-alias ng='git clean -n -d .'
+alias gu='git clean -n -d .'
+
+# Clean all untracked files and directories under current dir
+alias gx='git clean -f -d'
 
 # Create remote git branch (and local too) from master
 function gbr
