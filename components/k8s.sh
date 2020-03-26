@@ -3,7 +3,7 @@ alias kg='k get'
 alias kd='k describe'
 alias kc='k config'
 alias kcc='k config current-context'
-alias kcg='k config get-contexts'
+alias kcg='k config get-contexts -o name'
 alias kcu='k config use-context'
 
 alias mk='minikube'
