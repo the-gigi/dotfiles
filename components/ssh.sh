@@ -9,10 +9,14 @@ mkdir -p ~/.ssh
 #  ssh-add key &> /dev/null
 #done
 
-# Create SSH config file for github
+# Create SSH config file for github and gitlab (usingthe same key)
 cat << EOF > ~/.ssh/config
 Host github.com
 	HostName github.com
+	User git
+	IdentityFile ~/.ssh/github_id_rsa
+Host gitlab.com
+	HostName gitlab.com
 	User git
 	IdentityFile ~/.ssh/github_id_rsa
 EOF
