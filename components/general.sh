@@ -56,3 +56,10 @@ function sq
 #alias cat='bat'
 #alias grep='rg'
 #alias man='tldr'
+
+# Remove the prefix from all files in the current directory
+function remove_prefix_in_current_dir()
+{
+    profix=$1
+    for f in  "$prefix"*;do mv "$f" "${f#"$prefix"}";done
+}
