@@ -1,5 +1,6 @@
 gettext
 go
+htop
 httpie
 jq
 k3d
