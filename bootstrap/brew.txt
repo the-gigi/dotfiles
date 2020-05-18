@@ -1,3 +1,4 @@
+exa
 gettext
 go
 htop
@@ -18,6 +19,7 @@ pipenv
 pulumi
 pyenv
 python3
+ripgrep
 rust
 tmux
 tree

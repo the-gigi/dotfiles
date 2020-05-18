@@ -9,7 +9,8 @@ enable -r repeat
 alias shrug='echo "¯\_(ツ)_/¯"'
 
 # Directory listing in a nice format
-alias lla='ls -lAGh'
+#alias lla='ls -lAGh'
+alias lla='exa -la --git'
 
 # Disk usage that also sorts the results by size and saves to a file
 alias dus='du -Pscmx * | sort -nr | tee disk_usage.txt'
