@@ -64,3 +64,11 @@ function remove_prefix_in_current_dir()
     profix=$1
     for f in  "$prefix"*;do mv "$f" "${f#"$prefix"}";done
 }
+
+# Load colors
+autoload colors && colors
+for COLOR in RED GREEN YELLOW BLUE MAGENTA PURPLE CYAN BLACK WHITE; do
+    eval $COLOR='%{$fg_no_bold[${(L)COLOR}]%}'  # wrap colours between %{ %} to avoid weird gaps in autocomplete
+    eval BOLD_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
+done
+eval RESET='%{$reset_color%}'
