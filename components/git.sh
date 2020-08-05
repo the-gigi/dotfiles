@@ -20,24 +20,51 @@ alias gu='git clean -n -d .'
 alias gx='git clean -f -d'
 
 # Create remote git branch (and local too) from master
-function gbr
-{
-    gco master
-    gb $1
-    g push -u origin $1
-    gco $1
+function git_create_remote_branch() {
+  gco master
+  gpu
+  gb $1
+  g push -u origin $1
+  gco $1
 }
+alias gcrb='git_create_remote_branch'
+
+# Push current branch to remote (bail out of on master)
+function git_push_remote_branch() {
+  curr=$(git branch --show-current)
+  if [[ "$curr" -eq "master" ]]; then
+    echo "You're on master. Switch to another branch"
+    return 1
+  fi
+
+  gs -u | grep 'nothing to commit, working tree clean'
+  if [ $? -ne 0 ]; then
+    "Working tree is not clean"
+  fi
+
+  g push origin "$curr"
+}
+alias gprb='git_push_remote_branch'
+
+# Rebase the current branch on master
+function git_rebase_on_master() {
+  curr=$(git branch --show-current)
+  gco master
+  gpu
+  gco $curr
+  g rebase master
+}
+alias grom='rebase_on_master'
 
 # Check if git repo has changed changed (master vs. origin/master)
-function has_repo_changed() {
-    pushd . > /dev/null
-    cd "$1" > /dev/null
-    modified=$(git remote -v update 2>&1 | grep master | grep -v "up to date")
-    popd > /dev/null
-    if [[ "$modified" -eq '' ]]
-        then
-            return 1 # False
-        else
-            return 0 # True
-    fi
+function git_has_repo_changed() {
+  pushd . > /dev/null
+  cd "$1" > /dev/null
+  modified=$(git remote -v update 2>&1 | grep master | grep -v "up to date")
+  popd > /dev/null
+  if [[ "$modified" -eq '' ]]; then
+    return 1 # False
+  else
+    return 0 # True
+  fi
 }
