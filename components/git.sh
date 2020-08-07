@@ -54,7 +54,7 @@ function git_rebase_on_master() {
   gco $curr
   g rebase master
 }
-alias grom='rebase_on_master'
+alias grom='git_rebase_on_master'
 
 # Check if git repo has changed changed (master vs. origin/master)
 function git_has_repo_changed() {
