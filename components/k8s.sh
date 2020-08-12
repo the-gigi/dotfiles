@@ -2,7 +2,7 @@ alias k='kubectl'
 alias kg='k get'
 alias kd='k describe'
 alias kc='k config'
-alias kcc='k config current-context'
+alias kcc='echo "☸️  $(kubectl config current-context)"'
 alias kcg='k config get-contexts -o name'
 alias kcu='k config use-context'
 
@@ -27,6 +27,17 @@ function get_pod_name_by_label
 }
 
 alias kpn='get_pod_name_by_label'
+
+function switch_k8s_namespace
+{
+    if [[ "$#" -ne 1 ]]; then
+        kg ns
+    else
+        kc set-context --current --namespace "$1"
+    fi
+}
+
+alias kn='switch_k8s_namespace'
 
 # Bash completion for kubectl
 #autoload -Uz compinit
