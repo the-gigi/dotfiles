@@ -37,7 +37,7 @@ function prompt()
 
   # doesn't work without it
   setopt promptsubst
-  PS1='$(calc_current_dir)/$(echo "\n$ ")'
+  PS1='$(date +"[%H:%M:%S]") $(calc_current_dir)/$(echo "\n$ ")'
 }
 
 # Actually set the prompt by calling the function
