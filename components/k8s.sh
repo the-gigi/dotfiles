@@ -2,7 +2,7 @@ alias k='kubectl'
 alias kg='k get'
 alias kd='k describe'
 alias kc='k config'
-alias kcc='echo "☸️  $(kubectl config current-context)"'
+alias kcc='echo "$(kubectl config current-context)"'
 alias kcg='k config get-contexts -o name'
 alias kcu='k config use-context'
 
@@ -38,6 +38,59 @@ function switch_k8s_namespace
 }
 
 alias kn='switch_k8s_namespace'
+
+
+# Display all the kube-contexts passed as $1 with index. Add (*) for the current context
+function show_kube_contexts {
+  input=$1
+  contexts=(${(f)input})
+  curr=$(kcc)
+  for (( i = 1; i <= ${#contexts}; i++ )); do
+    c=$contexts[$i]
+    suffix=''
+    if [[ $c == $curr ]]; then
+      suffix='(*)'
+    fi
+    echo "[$i] $c $suffix"
+  done
+}
+
+
+# kube_context shows and switches kube contexts
+#
+# The function reads all the contexts from ~/.kube/config
+# If you call it with one argument (a partial context name) it will filter
+# and show only the matching contexts
+#
+# Otherwise it will display the list of all the contexts with an index number.
+# The current context is marked with asterisk.
+#
+# You can switch to new context by typing its single index digit.
+# If there are more than Nine contexts you need to press <enter> too.
+function kube_context {
+  if [[ "$#" == 0 ]]; then
+    contexts=$(kcg)
+  else
+    contexts=$(kcg | rg $1)
+  fi
+
+  show_kube_contexts $contexts
+
+  new_context=""
+  while [[ $new_context == "" ]]; do
+    echo "Choose a context (1..${#contexts}):"
+    if (( ${#contexts} < 10 )); then
+      read -rs -k 1 answer
+    else
+      read -r answer
+    fi
+    new_context=$contexts[(($answer))]
+  done
+
+  kcu $new_context
+}
+
+
 
 # Bash completion for kubectl
 #autoload -Uz compinit
