@@ -67,7 +67,7 @@ function show_kube_contexts {
 #
 # You can switch to new context by typing its single index digit.
 # If there are more than Nine contexts you need to press <enter> too.
-function kube_context {
+function switch_kube_context {
   if [[ "$#" == 0 ]]; then
     contexts=$(kcg)
   else
@@ -90,6 +90,7 @@ function kube_context {
   kcu $new_context
 }
 
+alias kcx=switch_kube_context
 
 
 # Bash completion for kubectl
