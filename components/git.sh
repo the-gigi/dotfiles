@@ -5,7 +5,7 @@ alias gci='git commit -a'
 alias gcia='git commit -a --amend'
 alias gb='git branch'
 alias gbd='git branch -D'
-alias gbc='git branch --show=current' | pbcopy
+alias gbc='git branch --show-current | pbcopy'
 alias gco='git checkout'
 alias gpu='git pull --rebase'
 alias gg='git grep -i'
