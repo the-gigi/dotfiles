@@ -5,6 +5,7 @@ alias gci='git commit -a'
 alias gcia='git commit -a --amend'
 alias gb='git branch'
 alias gbd='git branch -D'
+alias gbc='git branch --show=current' | pbcopy
 alias gco='git checkout'
 alias gpu='git pull --rebase'
 alias gg='git grep -i'
@@ -59,9 +60,9 @@ alias grom='git_rebase_on_master'
 # Check if git repo has changed changed (master vs. origin/master)
 function git_has_repo_changed() {
   pushd . > /dev/null
-  cd "$1" > /dev/null
+  cd "$1" > /dev/null || exit 2
   modified=$(git remote -v update 2>&1 | grep master | grep -v "up to date")
-  popd > /dev/null
+  popd > /dev/null || exit 2
   if [[ "$modified" -eq '' ]]; then
     return 1 # False
   else
