@@ -23,7 +23,7 @@ function find_listeners
 {
   for port in "$@"
   do
-    lsof -i | grep LISTEN | grep "$port" | awk '{ print $2 }'
+    lsof -nP -iTCP:${port} | grep LISTEN | awk '{ print $2 }'
   done
 }
 
