@@ -8,6 +8,7 @@ k3d
 k9s
 kapp
 kind
+kube-ps1
 kubectl
 kubernetes-helm
 kubebuilder
