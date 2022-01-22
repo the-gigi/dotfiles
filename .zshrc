@@ -2,8 +2,8 @@
 
 setopt INTERACTIVE_COMMENTS
 # -----------------------------------------------
-# This file should be in ~/git/dotfiles/.bashrc
-# and sourced from your ~/.bashrc
+# This file should be in ~/git/dotfiles/.zshrc
+# and sourced from your ~/.zshrc
 # -----------------------------------------------
 
 function source_dir()
@@ -16,7 +16,6 @@ function source_dir()
     [[ -d $d ]] && source_dir "$d"
   done
 }
-
 
 ## Execute all the standard files under ~/git/dotfiles/components
 source_dir ~/git/dotfiles/components
