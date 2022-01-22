@@ -1,5 +1,6 @@
 exa
 gettext
+gh
 go
 htop
 httpie
@@ -22,6 +23,6 @@ pyenv
 python3
 ripgrep
 rust
+tldr
 tmux
-tree
 ytt
