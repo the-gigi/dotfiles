@@ -6,6 +6,7 @@ k3d
 k9s
 kubectl
 kubernetes-helm
+microsoft/git
 minikube
 node
 octant

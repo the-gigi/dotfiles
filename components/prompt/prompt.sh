@@ -84,7 +84,7 @@ function install_status() {
     echo 'source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"' >> ~/.zshrc
   fi
 
-  # Add status() as a preexec hook
+  # Add display_status() as a preexec hook
   add-zsh-hook precmd display_status
 
 #  # Run the update_current_git_branch() function in the background
@@ -108,13 +108,14 @@ function prompt()
 
   # Display time + current dir in the prompt line
   export PS1='$(date +"[%H:%M:%S]") $(calc_current_dir)/$(echo "\n$ ")'
+  # export PS1='$(date +"[%H:%M:%S]") $(echo "\n$ ")'
 }
 
 # Actually set the prompt by calling the function
 prompt
 
 # Install the status
-sched +10 install_status
+sched +5 install_status
 
 #function prompt()
 #{

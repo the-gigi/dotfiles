@@ -7,16 +7,17 @@
 # and hooking up with the .zshrc
 # ----------------------------------------------------------
 
-DOT_DIR=~/git/dotfiles
-LOCAL_DOT_DIR=~/.dotfiles.local
+export DOT_DIR=~/git/dotfiles
+export LOCAL_DOT_DIR=~/.dotfiles.local
 BOOTSTRAP_DIR=${DOT_DIR}/bootstrap
 
 # Local dotfiles dir for additions and customizations
 mkdir -p "$LOCAL_DOT_DIR"
-${LOCAL_DOT_DIR}/paths.txt
-${LOCAL_DOT_DIR}/brew.txt
-${LOCAL_DOT_DIR}/brew-link.txt
-${LOCAL_DOT_DIR}/brew-cask.txt
+touch ${LOCAL_DOT_DIR}/paths.txt
+touch ${LOCAL_DOT_DIR}/brew.txt
+touch ${LOCAL_DOT_DIR}/brew-link.txt
+touch ${LOCAL_DOT_DIR}/brew-cask.txt
+touch ${LOCAL_DOT_DIR}/git-repos.txt
 
 
 # Symlink all rc files to the home dir (run commands. See https://en.wikipedia.org/wiki/Run_commands)
@@ -24,22 +25,18 @@ for file in ${DOT_DIR}/rcfiles.d; do
   ln -s $file ~
 done
 
-
 # Append a call to existing ~/.zshrc to run the dotfiles' .zshrc
-echo 'source ${DOT_DIR}/.zshrc' >>~/.zshrc
+echo "source ${DOT_DIR}/.zshrc" >>~/.zshrc
 
 # Install stuff
 
-## Install brew and brew-cask
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew tap homebrew/cask-cask
-brew tap homebrew/cask-versions
+## Install brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-
-## Add taps  with brew
-for item in $(cat ${BOOTSTRAP_DIR}/brew-tap.txt); do
-  brew tap $item
-done
+### Add taps with brew
+#for item in $(cat ${BOOTSTRAP_DIR}/brew-tap.txt); do
+#  brew tap $item
+#done
 
 ## Install stuff with brew
 for item in $(cat ${BOOTSTRAP_DIR}/brew.txt); do
@@ -53,7 +50,7 @@ done
 
 ## Install more stuff with brew-cask
 for item in $(cat ${BOOTSTRAP_DIR}/brew-cask.txt); do
-  brew cask install $item
+  brew install --cask $item
 done
 
 # Configure macos defaults

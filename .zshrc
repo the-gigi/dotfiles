@@ -20,5 +20,5 @@ function source_dir()
 ## Execute all the standard files under ~/git/dotfiles/components
 source_dir ~/git/dotfiles/components
 
-## Execute any local customizations that are in ~/dotfiles.local directory
+## Execute any local customizations that are in ~/.dotfiles.local directory
 source_dir ~/.dotfiles.local

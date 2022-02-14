@@ -70,3 +70,11 @@ function git_has_repo_changed() {
     return 0 # True
   fi
 }
+
+# Register large git repos (especially monorepos) with scalar
+# See https://github.com/microsoft/scalar
+function scalar_register() {
+  for item in $(cat ${LOCAL_DOT_DIR}/git-repos.txt); do
+    (cd $item && scalar register)
+  done
+}
