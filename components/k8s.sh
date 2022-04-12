@@ -1,5 +1,6 @@
 alias k='kubectl'
 alias kg='k get'
+alias kgpr='kg po --field-selector=status.phase==Running'
 alias kd='k describe'
 alias kc='k config'
 alias kcc='echo "$(kubectl config current-context)"'

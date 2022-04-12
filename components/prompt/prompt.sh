@@ -115,7 +115,7 @@ function prompt()
 prompt
 
 # Install the status
-sched +5 install_status
+sched +2 install_status
 
 #function prompt()
 #{
