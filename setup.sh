@@ -19,7 +19,6 @@ touch ${LOCAL_DOT_DIR}/brew-link.txt
 touch ${LOCAL_DOT_DIR}/brew-cask.txt
 touch ${LOCAL_DOT_DIR}/git-repos.txt
 
-
 # Symlink all rc files to the home dir (run commands. See https://en.wikipedia.org/wiki/Run_commands)
 for file in ${DOT_DIR}/rcfiles.d; do
   ln -s $file ~
@@ -33,10 +32,10 @@ echo "source ${DOT_DIR}/.zshrc" >>~/.zshrc
 ## Install brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-### Add taps with brew
-#for item in $(cat ${BOOTSTRAP_DIR}/brew-tap.txt); do
-#  brew tap $item
-#done
+## Add taps with brew
+for item in $(cat ${BOOTSTRAP_DIR}/brew-tap.txt); do
+  brew tap $item
+done
 
 ## Install stuff with brew
 for item in $(cat ${BOOTSTRAP_DIR}/brew.txt); do

@@ -14,7 +14,7 @@ kubectl
 kubernetes-helm
 kubebuilder
 kustomize
-microsft-git
+kyverno
 minikube
 node
 octant
