@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+set -euxo pipefail
+
+
 # ----------------------------------------------------------
 # This is the installation script that sets things in motion
 # It installs all the required tools and configures them
@@ -9,6 +12,10 @@
 
 export DOT_DIR=~/git/dotfiles
 export LOCAL_DOT_DIR=~/.dotfiles.local
+# Configure git
+git config --global user.email the.gigi@gmail.com
+git config --global user.name "Gigi Sayfan"
+
 BOOTSTRAP_DIR=${DOT_DIR}/bootstrap
 
 # Local dotfiles dir for additions and customizations
@@ -29,8 +36,13 @@ echo "source ${DOT_DIR}/.zshrc" >>~/.zshrc
 
 # Install stuff
 
-## Install brew
+## Install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+## Install envsubst
+curl -L https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-`uname -s`-`uname -m` -o envsubst
+chmod +x envsubst
+sudo mv envsubst /usr/local/bin
 
 ## Add taps with brew
 for item in $(cat ${BOOTSTRAP_DIR}/brew-tap.txt); do
