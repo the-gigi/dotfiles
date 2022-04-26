@@ -1,14 +1,14 @@
 adobe-acrobat-reader
 bbedit
 calibre
-docker
 dropbox
 firefox
 iterm2
 macdown
-microsoft-git # important for git in monorepo
+microsoft-git
 paintbrush
 pycharm-ce
+rancher
 slack
 vivaldi
 vlc

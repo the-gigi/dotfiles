@@ -14,7 +14,7 @@ cat << EOF > ~/.ssh/config
 Host github.com
 	HostName github.com
 	User git
-	IdentityFile ~/.ssh/github_id_rsa
+	IdentityFile ~/.ssh/github_id_ed25519
 Host gitlab.com
 	HostName gitlab.com
 	User git

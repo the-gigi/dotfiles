@@ -41,7 +41,16 @@ The built-in functionality includes:
 - Various functions
 - Various aliases
 
-You should check out the various files in the components directory. 
+You should check out the various files in the `bootstrap` and `components` directory. 
+
+### First-time setup
+
+The setup.sh script performs the following:
+
+- 
+
+### Shell and profile setup
+
 
 ## Components
 

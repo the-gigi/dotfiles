@@ -6,6 +6,8 @@ setopt INTERACTIVE_COMMENTS
 # and sourced from your ~/.zshrc
 # -----------------------------------------------
 
+autoload -Uz add-zsh-hook
+
 function source_dir()
 {
   for item in "$1"/*.sh; do

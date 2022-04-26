@@ -1,16 +1,2 @@
-gettext
-go
-httpie
-jq
-k3d
-k9s
-kubectl
-kubernetes-helm
+vmware-tanzu/carvel
 microsoft/git
-minikube
-node
-octant
-python3
-rust
-tmux
-tree

@@ -1,3 +1,5 @@
+awscli
+azure-cli
 exa
 gettext
 gh

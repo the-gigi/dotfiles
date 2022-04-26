@@ -3,6 +3,8 @@
 script_name=${(%):-%N}
 PROMPT_DIR="$(cd "$(dirname "$script_name")" >/dev/null 2>&1 && pwd)"
 
+source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
+
 alias escape_path='sed -e "s/\//\\\\\//g"'
 
 function get_paths()
@@ -78,12 +80,6 @@ function display_status()
 
 update_current_git_branch_pid=''
 function install_status() {
-  # Add kube-ps1 to .zshrc if needed
-  kube_ps1_in_zshrc=$(grep 'source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"' ~/.zshrc)
-  if [[ ! -n "${kube_ps1_in_zshrc}" ]]; then
-    echo 'source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"' >> ~/.zshrc
-  fi
-
   # Add display_status() as a preexec hook
   add-zsh-hook precmd display_status
 
