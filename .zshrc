@@ -6,6 +6,11 @@ setopt INTERACTIVE_COMMENTS
 # and sourced from your ~/.zshrc
 # -----------------------------------------------
 
+# Bind Home and End keys to beginning/end of line
+bindkey '\e[H'    beginning-of-line
+bindkey '\e[F'    end-of-line
+
+
 autoload -Uz add-zsh-hook
 
 function source_dir()

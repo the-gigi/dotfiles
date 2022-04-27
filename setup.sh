@@ -49,6 +49,9 @@ function init() {
   chmod +x envsubst
   sudo mv envsubst /usr/local/bin
 
+  # One time thing to access GCR in different regions
+  yes Y | gcloud auth configure-docker
+
   # Configure macos defaults
   source ${BOOTSTRAP_DIR}/macos-defaults.sh
 }
