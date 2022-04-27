@@ -13,6 +13,8 @@ bindkey '\e[F'    end-of-line
 
 autoload -Uz add-zsh-hook
 
+autoload -Uz add-zsh-hook
+
 function source_dir()
 {
   for item in "$1"/*.sh; do
