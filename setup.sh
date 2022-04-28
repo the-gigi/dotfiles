@@ -73,5 +73,11 @@ function brew_stuff() {
   done
 }
 
+function post_brew() {
+  # Set Azure kubelogin. See https://github.com/Azure/kubelogin
+  kubelogin convert-kubeconfig -l azurecli
+}
+
 init
 brew_stuff
+post_brew

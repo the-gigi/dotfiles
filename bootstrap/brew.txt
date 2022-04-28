@@ -1,5 +1,6 @@
 awscli
 azure-cli
+Azure/kubelogin/kubelogin
 exa
 gettext
 gh
@@ -26,6 +27,7 @@ pyenv
 python3
 ripgrep
 rust
+terraform
 tldr
 tmux
 ytt
