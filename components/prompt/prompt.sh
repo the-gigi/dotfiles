@@ -3,7 +3,7 @@
 script_name=${(%):-%N}
 PROMPT_DIR="$(cd "$(dirname "$script_name")" >/dev/null 2>&1 && pwd)"
 
-source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
+source "$(brew --prefix)/opt/kube-ps1/share/kube-ps1.sh"
 
 alias escape_path='sed -e "s/\//\\\\\//g"'
 
