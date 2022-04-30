@@ -10,9 +10,6 @@ setopt INTERACTIVE_COMMENTS
 bindkey '\e[H'    beginning-of-line
 bindkey '\e[F'    end-of-line
 
-
-autoload -Uz add-zsh-hook
-
 autoload -Uz add-zsh-hook
 
 function source_dir()
