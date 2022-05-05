@@ -18,13 +18,14 @@ kubernetes-helm
 kubebuilder
 kustomize
 kyverno
+lens
 minikube
 node
-octant
 pipenv
 pulumi
 pyenv
 python3
+q
 ripgrep
 rust
 terraform
