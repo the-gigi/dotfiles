@@ -19,6 +19,7 @@ kubebuilder
 kustomize
 kyverno
 lens
+libpq
 minikube
 node
 pipenv
