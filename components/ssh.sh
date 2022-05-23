@@ -18,7 +18,7 @@ Host github.com
 Host gitlab.com
 	HostName gitlab.com
 	User git
-	IdentityFile ~/.ssh/github_id_rsa
+	IdentityFile ~/.ssh/github_id_ed25519
 EOF
 
 # Make sure the SSH config file has the correct permissions

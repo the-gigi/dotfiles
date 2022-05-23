@@ -7,7 +7,7 @@ alias kcc='echo "$(kubectl config current-context)"'
 alias kcg='k config get-contexts -o name'
 alias kcu='k config use-context'
 
-alias mk='minikube'
+alias mk='$(brew --prefix)/bin/minikube'
 alias mks='mk start'
 #alias mks='mk start --memory 8192 --cpus 4'
 #alias mks='mk start --memory 8192 --cpus 4 --alsologtostderr --v 3'
