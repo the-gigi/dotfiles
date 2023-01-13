@@ -9,7 +9,7 @@ enable -r repeat
 alias shrug='echo "¯\_(ツ)_/¯"'
 
 # Directory listing in a nice format
-alias lla='exa -la --git'
+alias lla='ls -laGh'
 
 # Directory listing in a tree format
 alias tree='exa --tree'
@@ -25,7 +25,7 @@ function find_listeners
 {
   for port in "$@"
   do
-    lsof -nP -iTCP:${port} | grep LISTEN | awk '{ print $2 }'
+    lsof -nP -iTCP:${port} | grep LISTEN | awk '{ print $2 }' | sort -u
   done
 }
 

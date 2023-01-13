@@ -2,5 +2,5 @@
 syntax on
 
 " Select delek color scheme
-colo delek
+colorscheme evening 
 
