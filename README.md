@@ -100,6 +100,18 @@ Here is the end result:
 
 ### ssh
 
+If the company uses Github you'll need to have multiple Github hosts in the ~/.ssh/config file
+
+See https://gist.github.com/oanhnn/80a89405ab9023894df7 how to have personal and work
+Github entries. 
+
+At the moment the ~/.ssh/config is re-generated every time from [here](components/ssh.sh)
+
+This means you'll need to modify this file and add a work host
+
+TODO: make it extensible, by allowing to add entries
+
+
 ### prompt
 
 

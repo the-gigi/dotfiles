@@ -2,11 +2,14 @@ awscli
 azure-cli
 Azure/kubelogin/kubelogin
 exa
+eksctl
+gcloud
 gettext
 gh
 go
 htop
 httpie
+hugo
 jq
 k3d
 k9s
@@ -23,6 +26,7 @@ libpq
 minikube
 node
 pipenv
+powerlevel10k
 pulumi
 pyenv
 python3
@@ -32,4 +36,5 @@ rust
 terraform
 tldr
 tmux
+yq
 ytt

@@ -4,6 +4,7 @@ alias kgpr='kg po --field-selector=status.phase==Running'
 alias kd='k describe'
 alias kc='k config'
 alias kcc='echo "$(kubectl config current-context)"'
+alias kccp='kcc | pbcopy'
 alias kcg='k config get-contexts -o name'
 alias kcu='k config use-context'
 

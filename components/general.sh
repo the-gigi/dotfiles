@@ -46,7 +46,7 @@ function kill_listeners
 function install_basic_tools()
 {
     apt update  -y
-    apt install -y git tmux htop
+    apt install -y git tmux htop dnsutils
 }
 
 # Run sqlite commands directly (need to quote if using * in query)
@@ -57,8 +57,8 @@ function sq
 
 # Better CLI
 #alias cat='bat'
-#alias grep='rg'
-#alias man='tldr'
+alias grep='rg'
+alias man='tldr'
 
 # Remove the prefix from all files in the current directory
 function remove_prefix_in_current_dir()

@@ -13,3 +13,6 @@ function iterm2_print_user_vars() {
   # Create a variable `user.aws-profile` that contains the current AWS identity
   iterm2_set_user_var aws-profile "AWS Profile: ${AWS_PROFILE}"
 }
+
+# Not exactly iTerm2, but related...
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme

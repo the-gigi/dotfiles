@@ -101,6 +101,18 @@ function git_has_repo_changed() {
   fi
 }
 
+function git_is_current_branch_primary {
+  primary=$(git_get_primary_branch)
+  curr=$(git branch --show-current)
+
+  if [ "$curr" = "$primary" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+
 # Register large git repos (especially monorepos) with scalar
 # See https://github.com/microsoft/scalar
 function scalar_register() {
@@ -109,3 +121,42 @@ function scalar_register() {
     (cd "$item" && scalar register)
   done < "${LOCAL_DOT_DIR}/git-repos.txt"
 }
+
+# Never delete the primary
+function git_delete_current_branch {
+  # Define the name of the primary branch (adjust the function name if necessary)
+  primary=$(git_get_primary_branch)
+
+  # Save current branch name
+  current_branch=$(git branch --show-current)
+
+  # If on primary branch, bail out
+  if [ "$current_branch" = "$primary" ]; then
+    echo "You are on the primary branch ($primary). Cannot delete."
+    return 1
+  fi
+
+  # Switch to primary branch
+  if ! git checkout "$primary"; then
+    echo "Failed to switch to primary branch ($primary)."
+    return 1
+  fi
+
+  # Delete the saved branch
+  if ! git branch -d "$current_branch"; then
+    echo "Failed to delete branch $current_branch. Consider using -D to force."
+    return 1
+  fi
+
+  # Optionally, rebase primary branch
+  echo "Rebasing $primary..."
+  # shellcheck disable=SC2086
+  if ! git pull --rebase origin "$primary"; then
+    echo "Rebase failed. Please check for conflicts."
+    return 1
+  fi
+
+  echo "Branch $current_branch deleted and $primary rebased."
+}
+
+alias gbdd='get_git_delete_current_branch'
