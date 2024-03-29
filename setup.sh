@@ -19,6 +19,7 @@ function init() {
   # Configure git
   git config --global user.email the.gigi@gmail.com
   git config --global user.name "Gigi Sayfan"
+  git config --global fetch.prune true
 
   # Local dotfiles dir for additions and customizations
   mkdir -p "$LOCAL_DOT_DIR"
