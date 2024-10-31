@@ -3,9 +3,11 @@ bbedit
 calibre
 dropbox
 firefox
+google-cloud-sdk
 iterm2
 macdown
 microsoft-git
+microsoft-teams
 paintbrush
 pycharm-ce
 rancher

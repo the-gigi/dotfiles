@@ -28,34 +28,29 @@ function show_profiles {
 # when you type its single digit number
 #
 # If there are 10 or more profiles you must press <enter> too
-function aws_profile {
-  profiles=($(cat ~/.aws/config | rg '^.profile ' | cut -f 2 -d ' ' | cut -f 1 -d ']'))
-  if [[ $# == 1 ]]; then
-    found=0
-    for p in $profiles; do
-      if [[ $p == $1 ]]; then
-        found=1
-        break
-      fi
+function aws_profile() {
+    profiles=($(rg -oP '(?<=\[profile ).*(?=\])' ~/.aws/config))
+    if [[ $# -eq 1 ]]; then
+        if [[ " ${profiles[@]} " =~ " $1 " ]]; then
+            switch_profile "$1"
+            return
+        fi
+    fi
+
+    show_profiles "${profiles[@]}"
+    new_profile=""
+    while [[ -z $new_profile ]]; do
+        echo "Choose a profile (1..${#profiles[@]}):"
+		if (( ${#profiles} < 10 ))
+		then
+				read -sk 1 answer
+		else
+				read answer
+		fi
+    if ! [[ $answer =~ ^[0-9]+$ ]]; then
+      continue
+    fi
+		new_profile=$profiles[(($answer))]
     done
-    if [[ $found == 1 ]]; then
-      switch_profile $1
-      return
-    fi
-  fi
-
-  show_profiles $profiles
-
-  new_profile=""
-  while [[ $new_profile == "" ]]; do
-    echo "Choose a profile (1..${#profiles}):"
-    if (( ${#profiles} < 10 )); then
-      read -rs -k 1 answer
-    else
-      read -r answer
-    fi
-    new_profile=$profiles[(($answer))]
-  done
-
-  switch_profile $new_profile
+    switch_profile "$new_profile"
 }

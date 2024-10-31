@@ -148,6 +148,12 @@ function git_delete_current_branch {
     return 1
   fi
 
+  # Delete the remote branch
+  if ! git push origin --delete "$current_branch"; then
+      echo "Failed to delete branch $current_branch remotely."
+      return 1
+  fi
+
   # Optionally, rebase primary branch
   echo "Rebasing $primary..."
   # shellcheck disable=SC2086
@@ -159,4 +165,4 @@ function git_delete_current_branch {
   echo "Branch $current_branch deleted and $primary rebased."
 }
 
-alias gbdd='get_git_delete_current_branch'
+alias gbdd='git_delete_current_branch'
