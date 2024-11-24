@@ -15,6 +15,7 @@ k3d
 k9s
 kapp
 kind
+ko
 kube-ps1
 kubectl
 kubernetes-helm

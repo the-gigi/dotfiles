@@ -12,6 +12,7 @@ paintbrush
 pycharm-ce
 rancher
 slack
+visual-studio-code
 vivaldi
 vlc
 whatsapp

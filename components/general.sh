@@ -11,9 +11,6 @@ alias shrug='echo "¯\_(ツ)_/¯"'
 # Directory listing in a nice format
 alias lla='ls -laGh'
 
-# Directory listing in a tree format
-alias tree='exa --tree'
-
 # Disk usage that also sorts the results by size and saves to a file
 alias dus='du -Pscmx * | sort -nr | tee disk_usage.txt'
 
@@ -30,14 +27,20 @@ function find_listeners
 }
 
 # Kill whoever listens on any of the target ports
-function kill_listeners
-{
-  for port in "$@"
-  do
-    listener=$(find_listeners $port)
-    if [ -n "$listener" ]; then
-      echo "Killing listener: $listener"
-      kill -9 "$listener"
+function kill_listeners {
+  for port in "$@"; do
+    listeners=$(find_listeners $port)
+    if [ -n "$listeners" ]; then
+      echo "Killing listeners on port $port:"
+      # Iterate over each listener PID
+      while IFS= read -r listener; do
+        if [ -n "$listener" ]; then
+          echo "  Killing listener PID: $listener"
+          kill -9 "$listener"
+        fi
+      done <<< "$listeners"
+    else
+      echo "No listeners found on port $port"
     fi
   done
 }
