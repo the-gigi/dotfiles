@@ -95,6 +95,60 @@ function switch_kube_context {
 alias kcx=switch_kube_context
 
 
+# remove_kube_context removes a specified Kubernetes context, along with its associated cluster
+# and user, from the kubeconfig file.
+#
+# Usage:
+#   remove_kube_context <context_name>
+#
+# Arguments:
+#   context_name: The name of the Kubernetes context to remove.
+#
+# Returns:
+#   1 if the context name is not provided or if the context does not exist in the kubeconfig file.
+#
+# Example:
+#   remove_kube_context the-context
+#
+# The function performs the following steps:
+#   1. Checks if the context name is provided. If not, it prints the usage and returns 1.
+#   2. Retrieves the cluster and user associated with the context.
+#   3. Checks if the context exists in the kubeconfig file. If not, it prints an error message and
+#   returns 1.
+#   4. Removes the context, cluster, and user from the kubeconfig file.
+#   5. Prints messages indicating the removal of the context, cluster, and user.
+remove_kube_context() {
+    local context_name=$1
+
+    if [ -z "$context_name" ]; then
+        echo "Usage: remove_kube_context <context_name>"
+        return 1
+    fi
+
+    # Get cluster and user associated with the context
+    local cluster_name=$(kubectl config view -o jsonpath="{.contexts[?(@.name=='$context_name')].context.cluster}")
+    local user_name=$(kubectl config view -o jsonpath="{.contexts[?(@.name=='$context_name')].context.user}")
+
+    # Check if context exists
+    if [ -z "$cluster_name" ] || [ -z "$user_name" ]; then
+        echo "Context '$context_name' not found in the kubeconfig file."
+        return 1
+    fi
+
+    echo "Removing context: $context_name"
+    kubectl config delete-context "$context_name"
+
+    echo "Removing cluster: $cluster_name"
+    kubectl config unset "clusters.$cluster_name"
+
+    echo "Removing user: $user_name"
+    kubectl config unset "users.$user_name"
+
+    echo "Context, cluster, and user associated with '$context_name' have been removed."
+}
+
+alias rmkc=remove_kube_context
+
 # Bash completion for kubectl
 #autoload -Uz compinit
 #compinit
