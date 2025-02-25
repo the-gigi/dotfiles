@@ -3,6 +3,9 @@ export EDITOR=vim
 # Don't save commands that have a space prefix in the history
 export HISTCONTROL=ignorespace
 
+# Show time for each command in the history
+setopt EXTENDED_HISTORY
+
 # Enable the repeat command
 enable -r repeat
 
