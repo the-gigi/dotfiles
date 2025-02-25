@@ -3,8 +3,23 @@ export EDITOR=vim
 # Don't save commands that have a space prefix in the history
 export HISTCONTROL=ignorespace
 
-# Show time for each command in the history
-setopt EXTENDED_HISTORY
+# Ensure Zsh uses history file
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
+
+# Enable extended history (stores timestamps)
+setopt extendedhistory
+export HIST_STAMPS="yyyy-mm-dd"
+
+# Ensure history updates immediately
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+
+history() {
+    gawk -F';' '{ cmd=$2; ts=strftime("[%F %T]", substr($1,3)); print ts, cmd }' ~/.zsh_history | tail -n "${1:-50}"
+}
+
 
 # Enable the repeat command
 enable -r repeat

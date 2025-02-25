@@ -3,6 +3,7 @@ azure-cli
 Azure/kubelogin/kubelogin
 exa
 eksctl
+gawk
 gcloud
 gettext
 gh
