@@ -160,3 +160,14 @@ function git_delete_current_branch {
 }
 
 alias gbdd='git_delete_current_branch'
+
+# Delete a git tag locally and remotely
+git_delete_tag() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: git_delete_tag <tag name>"
+    return 1
+  fi
+  git tag -d "$1" && git push origin --delete tag "$1"
+}
+
+gdt='git_delete_tag'

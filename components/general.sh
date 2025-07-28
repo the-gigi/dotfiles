@@ -30,7 +30,7 @@ alias shrug='echo "¯\_(ツ)_/¯"'
 alias lla='ls -laGh'
 
 # Disk usage that also sorts the results by size and saves to a file
-alias dus='du -Pscmx * | sort -nr | tee disk_usage.txt'
+alias dus='du -Pschx .??* * | sort -hr | tee disk_usage.txt'
 
 # Concise dig to resolve DNS names
 alias dg='dig +noall +answer'

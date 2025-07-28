@@ -14,7 +14,11 @@ Host gitlab.com
 Host github.com-invisible
 	HostName github.com
 	User git
-	IdentityFile ~/.ssh/id_ed25519_invisible' > ~/.ssh/config
+	IdentityFile ~/.ssh/id_ed25519_invisible
+Host github.com-apollo
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_rsa' > ~/.ssh/config
 
 # Make sure the SSH config file has the correct permissions
 chmod 0600 ~/.ssh/config
