@@ -170,4 +170,4 @@ git_delete_tag() {
   git tag -d "$1" && git push origin --delete tag "$1"
 }
 
-gdt='git_delete_tag'
+alias gdt='git_delete_tag'
