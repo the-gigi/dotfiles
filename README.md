@@ -114,6 +114,26 @@ TODO: make it extensible, by allowing to add entries
 
 ### prompt
 
+The setup uses [powerlevel10k](https://github.com/romkatv/powerlevel10k) for a feature-rich zsh prompt. It includes:
+
+- **Directory emojis**: Different directories show custom emojis
+  - 🏠 Home directory (`~`)
+  - 🐙 Git directories (`~/git/*`)
+- **Git status**: Shows branch, staged/unstaged changes, and commit status
+- **Time display**: Current time in the top-right corner
+- **Two-line prompt**: Clean separation between info and command input
+
+To customize the prompt appearance, run `p10k configure`. The configuration is stored in `~/.p10k.zsh` and can be version-controlled as part of your dotfiles.
+
+**Font Setup**: The setup automatically installs MesloLG Nerd Font. After installation, set your terminal font to see all icons properly:
+
+1. **iTerm2**: Go to `iTerm2 → Settings → Profiles → Text → Font`
+2. Click "Change Font" and select "MesloLGLDZ Nerd Font" or "MesloLGLDZ Nerd Font Mono"
+3. **Other terminals**: Look for font/appearance settings and choose a MesloLG Nerd Font variant
+
+If you see question marks (❓) in your prompt, your terminal font doesn't support the required symbols.
+
+For local customizations (like work-specific directory mappings), add overrides to `~/.dotfiles.local/p10k-local.sh`.
 
 ## Extensions and customizations
 

@@ -11,10 +11,10 @@ Host gitlab.com
 	HostName gitlab.com
 	User git
 	IdentityFile ~/.ssh/github_id_ed25519
-Host github.com-invisible
+Host github.com-perplexity
 	HostName github.com
 	User git
-	IdentityFile ~/.ssh/id_ed25519_invisible
+	IdentityFile ~/.ssh/perplexity_id_ed25519
 Host github.com-apollo
 	HostName github.com
 	User git

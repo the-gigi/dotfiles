@@ -1,11 +1,14 @@
 awscli
 azure-cli
 Azure/kubelogin/kubelogin
-exa
+colima
+docker
+docker-compose
+docker-buildx
 eksctl
 gawk
-gcloud
 gettext
+gemini-cli
 gh
 go
 htop
@@ -32,7 +35,6 @@ powerlevel10k
 pulumi
 pyenv
 python3
-q
 ripgrep
 rust
 terraform

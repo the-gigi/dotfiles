@@ -2,6 +2,7 @@
 
 set -euxo pipefail
 
+
 # ----------------------------------------------------------
 # This is the installation script that sets things in motion
 # It installs all the required tools and configures them
@@ -36,32 +37,37 @@ function init() {
     fi
   done
 
+
   # Append a call to existing ~/.zshrc to run the dotfiles' .zshrc if needed
-    source_dotfiles_zshrc_in_zshrc=$(grep 'source "${DOT_DIR}/.zshrc"' ~/.zshrc)
-    if [[ ! -n "${source_dotfiles_zshrc_in_zshrc}" ]]; then
-      echo "source ${DOT_DIR}/.zshrc" >>~/.zshrc
-    fi
+  touch ~/.zshrc
+  source_dotfiles_zshrc_in_zshrc=$(grep 'source "${DOT_DIR}/.zshrc"' ~/.zshrc || true)
+  if [[ ! -n "${source_dotfiles_zshrc_in_zshrc}" ]]; then
+    echo "source ${DOT_DIR}/.zshrc" >> ~/.zshrc
+  fi
 
-  ## Install homebrew
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # Homebrew: Only install if missing
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "Installing brew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
 
-  ## Install envsubst
-  curl -L https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-`uname -s`-`uname -m` -o envsubst
-  chmod +x envsubst
-  sudo mv envsubst /usr/local/bin
-
-  # One time thing to access GCR in different regions
-  yes Y | gcloud auth configure-docker
+  # envsubst: Only install if missing
+  if ! command -v envsubst >/dev/null 2>&1; then
+    echo "Installing envsubst..."
+    curl -L https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-$(uname -s)-$(uname -m) -o envsubst
+    chmod +x envsubst
+    sudo mv envsubst /usr/local/bin
+  fi
 
   # Configure macos defaults
   source ${BOOTSTRAP_DIR}/macos-defaults.sh
 }
 
 function brew_stuff() {
-    ## Add taps with brew
-    for item in $(cat ${BOOTSTRAP_DIR}/brew-tap.txt); do
-      brew tap $item
-    done
+  ## Add taps with brew
+  for item in $(cat ${BOOTSTRAP_DIR}/brew-tap.txt); do
+    brew tap $item
+  done
 
   ## Install stuff with brew
   for item in $(cat ${BOOTSTRAP_DIR}/brew.txt); do
@@ -77,6 +83,10 @@ function brew_stuff() {
 function post_brew() {
   # Set Azure kubelogin. See https://github.com/Azure/kubelogin
   kubelogin convert-kubeconfig -l azurecli
+
+  # One time thing to access GCR in different regions
+  yes Y | gcloud auth configure-docker
+
 }
 
 init

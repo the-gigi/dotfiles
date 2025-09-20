@@ -54,3 +54,33 @@ function aws_profile() {
     done
     switch_profile "$new_profile"
 }
+
+# AWS role component for powerlevel10k prompt
+# Shows current AWS assumed role with appropriate colors
+function prompt_aws_role() {
+  # Check if we have AWS SSO role information
+  if [[ -z "$AWS_SSO_ROLE_NAME" || -z "$AWS_SSO_ACCOUNT_ID" ]]; then
+    return
+  fi
+
+  # Create display name based on account and role
+  local account_name role_display
+
+  case "$AWS_SSO_ACCOUNT_ID" in
+    706218807402)
+      account_name="sandbox"
+      ;;
+    699*)
+      account_name="prod"
+      ;;
+    *)
+      account_name="aws"
+      ;;
+  esac
+
+  # Display format: "account role"
+  local display_text="${account_name} ${AWS_SSO_ROLE_NAME}"
+
+  # Use p10k segment API
+  p10k segment -i '☁️' -f 208 -t "$display_text"
+}

@@ -77,9 +77,10 @@
     scalaenv                # scala version from scalaenv (https://github.com/scalaenv/scalaenv)
     haskell_stack           # haskell version from stack (https://haskellstack.org/)
     kubecontext             # current kubernetes context (https://kubernetes.io/)
+    aws_role                # custom aws assumed role display
     terraform               # terraform workspace (https://www.terraform.io)
     # terraform_version     # terraform version (https://www.terraform.io)
-    aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+    # aws_profile           # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
     aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
     azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
     gcloud                  # google cloud cli account and project (https://cloud.google.com/)
@@ -349,7 +350,18 @@
   # parameter. For example, if POWERLEVEL9K_DIR_WORK_NOT_WRITABLE_FOREGROUND is not set, it falls
   # back to POWERLEVEL9K_DIR_FOREGROUND.
   #
-  # typeset -g POWERLEVEL9K_DIR_CLASSES=()
+  # Custom directory classes with emojis
+  typeset -g POWERLEVEL9K_DIR_CLASSES=(
+    '~/git(|/*)'     GIT_DIR   ''
+    '~(|/*)'         HOME      ''
+    '*'              DEFAULT   ''
+  )
+
+  # Styling for HOME directory
+  typeset -g POWERLEVEL9K_DIR_HOME_VISUAL_IDENTIFIER_EXPANSION='🏠'
+
+  # Styling for GIT_DIR directory
+  typeset -g POWERLEVEL9K_DIR_GIT_DIR_VISUAL_IDENTIFIER_EXPANSION='🐙'
 
   # Custom prefix.
   # typeset -g POWERLEVEL9K_DIR_PREFIX='%246Fin '
@@ -1380,6 +1392,11 @@
   # Custom prefix.
   # typeset -g POWERLEVEL9K_KUBECONTEXT_PREFIX='%246Fat '
 
+  ####################################[ aws_role: custom aws role display ]####################################
+  # AWS role segment colors
+  typeset -g POWERLEVEL9K_AWS_ROLE_FOREGROUND=208  # Orange color
+  typeset -g POWERLEVEL9K_AWS_ROLE_VISUAL_IDENTIFIER_EXPANSION='☁️'
+
   #[ aws: aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) ]#
   # Show aws only when the command you are typing invokes one of these tools.
   # Tip: Remove the next line to always show aws.
@@ -1415,13 +1432,11 @@
       # '*test*'  TEST    # to match your needs. Customize them as needed.
       '*'       DEFAULT)
   typeset -g POWERLEVEL9K_AWS_DEFAULT_FOREGROUND=208
-  # typeset -g POWERLEVEL9K_AWS_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  typeset -g POWERLEVEL9K_AWS_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='☁️'
 
-  # AWS segment format. The following parameters are available within the expansion.
-  #
-  # - P9K_AWS_PROFILE  The name of the current AWS profile.
-  # - P9K_AWS_REGION   The region associated with the current AWS profile.
-  typeset -g POWERLEVEL9K_AWS_CONTENT_EXPANSION='${P9K_AWS_PROFILE//\%/%%}${P9K_AWS_REGION:+ ${P9K_AWS_REGION//\%/%%}}'
+  # AWS segment format - Show account name and actual role name
+  # Format: "sandbox PowerUserAccess" or "prod PerplexityDev"
+  typeset -g POWERLEVEL9K_AWS_CONTENT_EXPANSION='${AWS_SSO_ROLE_NAME:+${${AWS_SSO_ACCOUNT_ID/706218807402/sandbox}//699*/prod} ${AWS_SSO_ROLE_NAME}}${P9K_AWS_PROFILE}'
 
   #[ aws_eb_env: aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/) ]#
   # AWS Elastic Beanstalk environment color.

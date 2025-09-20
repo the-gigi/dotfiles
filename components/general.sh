@@ -78,7 +78,7 @@ function sq
 
 # Better CLI
 #alias cat='bat'
-alias grep='rg'
+#alias grep='rg'
 alias man='tldr'
 
 # Remove the prefix from all files in the current directory

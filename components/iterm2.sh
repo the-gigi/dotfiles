@@ -15,4 +15,4 @@ function iterm2_print_user_vars() {
 }
 
 # Not exactly iTerm2, but related...
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+#source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
