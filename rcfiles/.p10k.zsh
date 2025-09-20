@@ -361,7 +361,11 @@
   typeset -g POWERLEVEL9K_DIR_HOME_VISUAL_IDENTIFIER_EXPANSION='🏠'
 
   # Styling for GIT_DIR directory
-  typeset -g POWERLEVEL9K_DIR_GIT_DIR_VISUAL_IDENTIFIER_EXPANSION='🐙'
+  # Remove the default visual identifier and put emoji in the content instead
+  typeset -g POWERLEVEL9K_DIR_GIT_DIR_VISUAL_IDENTIFIER_EXPANSION=''
+
+  # Replace ~/git with 🐙 and show subdirectories after it
+  typeset -g POWERLEVEL9K_DIR_GIT_DIR_CONTENT_EXPANSION='🐙 ${${PWD/#$HOME\/git/}#/}'
 
   # Custom prefix.
   # typeset -g POWERLEVEL9K_DIR_PREFIX='%246Fin '
@@ -1741,7 +1745,7 @@
   #   - verbose: Enable instant prompt and print a warning when detecting console output during
   #              zsh initialization. Choose this if you've never tried instant prompt, haven't
   #              seen the warning, or if you are unsure what this all means.
-  typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
   # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
   # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
