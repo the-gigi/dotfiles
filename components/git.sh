@@ -184,4 +184,83 @@ git_delete_tag() {
 
 alias gdt='git_delete_tag'
 
+# Show branches with their associated PR information
+function git_branch_enhanced() {
+  # Colors
+  local GREEN='\033[0;32m'
+  local YELLOW='\033[0;33m'
+  local CYAN='\033[0;36m'
+  local MAGENTA='\033[0;35m'
+  local GRAY='\033[0;90m'
+  local NC='\033[0m' # No Color
+
+  # Get all local branches
+  local branches
+  branches=$(git branch --format='%(refname:short)')
+
+  # Print header
+  echo -e "$(printf "%-40s %-20s %-10s %s" "BRANCH" "REVIEW" "STATE" "PR URL")"
+  echo -e "$(printf "%-40s %-20s %-10s %s" "========================================" "====================" "==========" "==================================================")"
+
+  # For each branch, try to get PR info
+  while IFS= read -r branch; do
+    # Try to get PR info using gh (GitHub CLI)
+    local pr_info
+    pr_info=$(gh pr view "$branch" --json reviewDecision,state,url 2>/dev/null)
+
+    if [ $? -eq 0 ] && [ -n "$pr_info" ]; then
+      # Extract fields from JSON
+      local review state url
+      review=$(echo "$pr_info" | jq -r '.reviewDecision // "NONE"')
+      state=$(echo "$pr_info" | jq -r '.state // "N/A"')
+      url=$(echo "$pr_info" | jq -r '.url // "N/A"')
+
+      # Color coding based on review decision
+      local review_display
+      case "$review" in
+        "APPROVED")
+          review_display="${GREEN}${review}${NC}"
+          ;;
+        "REVIEW_REQUIRED"|"CHANGES_REQUESTED")
+          review_display="${YELLOW}${review}${NC}"
+          ;;
+        *)
+          review_display="$review"
+          ;;
+      esac
+
+      # Color coding based on state
+      local state_display
+      case "$state" in
+        "OPEN")
+          state_display="${CYAN}${state}${NC}"
+          ;;
+        "MERGED")
+          state_display="${MAGENTA}${state}${NC}"
+          ;;
+        "CLOSED")
+          state_display="${GRAY}${state}${NC}"
+          ;;
+        *)
+          state_display="$state"
+          ;;
+      esac
+
+      # Calculate padding (accounting for color codes add extra chars)
+      local review_len state_len review_pad state_pad
+      review_len=${#review}
+      state_len=${#state}
+      review_pad=$((20 - review_len))
+      state_pad=$((10 - state_len))
+
+      echo -e "$(printf "%-40s" "$branch") ${review_display}$(printf "%${review_pad}s" "") ${state_display}$(printf "%${state_pad}s" "") ${url}"
+    else
+      # No PR found
+      echo -e "$(printf "%-40s %-20s %-10s %s" "$branch" "-" "-" "-")"
+    fi
+  done <<< "$branches"
+}
+
+alias gbx='git_branch_enhanced'
+
 
