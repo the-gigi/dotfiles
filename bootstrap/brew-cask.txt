@@ -2,6 +2,7 @@ adobe-acrobat-reader
 bbedit
 calibre
 chatgpt
+cmux
 firefox
 font-meslo-lg-nerd-font
 gcloud-cli

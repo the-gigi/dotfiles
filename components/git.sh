@@ -9,6 +9,9 @@ alias gbc='git branch --show-current | pbcopy'
 alias gru='git config --get remote.origin.url | pbcopy'
 alias gco='git checkout'
 alias gpu='git pull --rebase'
+# Force-push with lease: refuses if the remote moved since the last fetch, so it
+# can't silently clobber someone else's push (unlike a bare --force).
+alias gpnv='git push --no-verify --force-with-lease'
 alias gg='git grep -i'
 alias gs='git status -uno'
 alias gd='git diff'
@@ -171,7 +174,6 @@ git_tag() {
   git tag "$1" && git push --tags
 }
 
-alias gt='git_tag'
 
 # Delete a git tag locally and remotely
 git_delete_tag() {

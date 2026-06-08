@@ -30,7 +30,7 @@ alias shrug='echo "¯\_(ツ)_/¯"'
 alias lla='ls -laGh'
 
 # Disk usage that also sorts the results by size and saves to a file
-alias dus='du -Pschx .??*(N) *(N) | sort -hr | tee disk_usage.txt'
+alias dus='gdu -Pschx --exclude=.Trash .??*(N) *(N) | sort -hr | tee disk_usage.txt'
 
 # Concise dig to resolve DNS names
 alias dg='dig +noall +answer'
@@ -95,3 +95,8 @@ for COLOR in RED GREEN YELLOW BLUE MAGENTA PURPLE CYAN BLACK WHITE; do
     eval BOLD_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
 done
 eval RESET='%{$reset_color%}'
+
+
+alias disk-space="df -H | rg --color=never 'Filesystem|/System/Volumes/Data$'"
+
+

@@ -2,6 +2,7 @@ awscli
 azure-cli
 Azure/kubelogin/kubelogin
 colima
+coreutils
 docker
 docker-compose
 docker-buildx
