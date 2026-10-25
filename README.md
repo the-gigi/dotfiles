@@ -135,6 +135,24 @@ If you see question marks (❓) in your prompt, your terminal font doesn't suppo
 
 For local customizations (like work-specific directory mappings), add overrides to `~/.dotfiles.local/p10k-local.sh`.
 
+### direnv and GitHub accounts
+
+[direnv](https://direnv.net) sets `GH_TOKEN` per directory, so `gh` (and git over HTTPS, through `gh auth git-credential`) uses the right GitHub account without `gh auth switch`. The routing lives in [config/direnv/direnvrc](config/direnv/direnvrc), which `setup.sh` symlinks to `~/.config/direnv/direnvrc`. `setup.sh` also creates an empty `~/git/.envrc` so direnv loads for every repo under `~/git`, including repos that don't ship their own `.envrc`.
+
+Everything under `~/git` uses the personal account, `the-gigi`. Other accounts, like a work one, go in `~/.dotfiles.local/gh-accounts.txt`, so they stay out of this repo. `setup.sh` seeds that file with a commented template. The format is one `<dir> <gh-user>` per line:
+
+```text
+# Work repos use the work account
+~/git/work the-gigi-work
+```
+
+- `~` is expanded and a trailing slash is optional.
+- Blank lines and `#` comments are ignored.
+- The longest matching dir wins, so line order doesn't matter.
+- Every account listed must be logged in to `gh` (`gh auth login`, then check with `gh auth status`). If it isn't, direnv prints an error and leaves `GH_TOKEN` unset.
+
+To check which account a directory gets, `cd` into it and run `gh api user --jq .login`.
+
 ## Extensions and customizations
 
 Customization is done by running commands before and after the main .zshrc script, as well as dropping files in various directories that will be picked up and executed (sourced) by the main script.

@@ -29,11 +29,34 @@ function init() {
   touch ${LOCAL_DOT_DIR}/brew-link.txt
   touch ${LOCAL_DOT_DIR}/brew-cask.txt
   touch ${LOCAL_DOT_DIR}/git-repos.txt
+  if [[ ! -a ${LOCAL_DOT_DIR}/gh-accounts.txt ]]; then
+    cat > ${LOCAL_DOT_DIR}/gh-accounts.txt <<'EOF'
+# gh account overrides, read by ~/git/dotfiles/config/direnv/direnvrc.
+# Everything under ~/git uses the-gigi unless a line here says otherwise.
+#
+# Format: one "<dir> <gh-user>" per line. ~ is expanded, a trailing slash is
+# optional, blank lines and # comments are ignored. The longest matching dir
+# wins, so line order doesn't matter. The user must be logged in to gh
+# (`gh auth login`, then check `gh auth status`).
+#
+# Example:
+#   ~/git/work the-gigi-work
+EOF
+  fi
 
   # Symlink all rc files into the home dir (run commands. See https://en.wikipedia.org/wiki/Run_commands)
   for file in ${DOT_DIR}/rcfiles/*(DN); do
     if [[ ! -a "${HOME}/${file:t}" ]]; then
       ln -s $file ~
+    fi
+  done
+
+  # Symlink every file under config/ into ~/.config at the same relative path
+  for file in ${DOT_DIR}/config/**/*(.DN); do
+    target="${HOME}/.config/${file#${DOT_DIR}/config/}"
+    if [[ ! -a "$target" ]]; then
+      mkdir -p "${target:h}"
+      ln -s $file "$target"
     fi
   done
 
@@ -87,6 +110,12 @@ function post_brew() {
   # One time thing to access GCR in different regions
   yes Y | gcloud auth configure-docker
 
+  # Empty direnv trigger so the gh account routing in config/direnv/direnvrc
+  # loads for every repo under ~/git, including ones without their own .envrc
+  if [[ ! -a ~/git/.envrc ]]; then
+    echo "# Trigger file: the gh account routing lives in ~/.config/direnv/direnvrc" > ~/git/.envrc
+  fi
+  direnv allow ~/git/.envrc
 }
 
 init

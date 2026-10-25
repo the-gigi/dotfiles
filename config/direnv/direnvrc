@@ -1,0 +1,46 @@
+# Per-account GitHub CLI routing (composes with each directory's own .envrc).
+#
+# Symlinked to ~/.config/direnv/direnvrc by setup.sh. direnv runs it BEFORE
+# the directory's .envrc on every load, so it layers on top of repos that ship
+# their own (possibly git-tracked) .envrc without modifying those files.
+#
+# Everything under ~/git uses the personal account (the-gigi). Overrides come
+# from ~/.dotfiles.local/gh-accounts.txt, one "<dir> <gh-user>" per line, e.g.
+#
+#   ~/git/work the-gigi-work
+#
+# The longest matching dir wins, so line order doesn't matter. Pinning the
+# account per directory, rather than leaving it to the keyring's active
+# account, keeps it right even after a `gh auth switch` or `gh auth login`.
+# GH_TOKEN is direnv-scoped, so it unloads when you leave the directory.
+#
+# ~/git/.envrc is an empty trigger file (created by setup.sh) so direnv loads
+# for every repo under ~/git, including ones without their own .envrc.
+
+__gh_user=""
+__gh_match=""
+if [[ "$PWD/" == "$HOME/git/"* ]]; then
+  __gh_user="the-gigi"
+  __gh_match="$HOME/git"
+fi
+
+if [[ -f "$HOME/.dotfiles.local/gh-accounts.txt" ]]; then
+  while read -r __dir __user _; do
+    [[ -z "$__dir" || "$__dir" == \#* || -z "$__user" ]] && continue
+    __dir="${__dir/#\~/$HOME}"
+    __dir="${__dir%/}"
+    if [[ "$PWD/" == "$__dir/"* && ${#__dir} -gt ${#__gh_match} ]]; then
+      __gh_user="$__user"
+      __gh_match="$__dir"
+    fi
+  done < "$HOME/.dotfiles.local/gh-accounts.txt"
+fi
+
+if [[ -n "$__gh_user" ]]; then
+  if __gh_token="$(gh auth token --user "$__gh_user" 2>/dev/null)" && [[ -n "$__gh_token" ]]; then
+    export GH_TOKEN="$__gh_token"
+  else
+    log_error "gh account '$__gh_user' isn't logged in (gh auth login), leaving GH_TOKEN unset"
+  fi
+fi
+unset __gh_user __gh_match __dir __user __gh_token
